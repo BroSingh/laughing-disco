@@ -2,9 +2,15 @@ name: Angular CI/CD with Docker
 
 on:
   push:
-    branches: [ master ] # Changed back to 'master'
+    branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      target-branch:
+        description: 'Branch to run the workflow on'
+        required: true
+        default: 'master'
 
 jobs:
   build:
@@ -13,6 +19,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.target-branch }}
 
     - name: Set up QEMU (optional for multi-platform builds)
       uses: docker/setup-qemu-action@v3
