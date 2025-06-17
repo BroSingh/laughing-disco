@@ -1,0 +1,31 @@
+name: Generate Git Tag
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Generate and Push Git Tag
+        run: |
+          TAG_NAME="v$(date +'%Y%m%d%H%M%S')"
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git tag "$TAG_NAME"
+          git push origin "$TAG_NAME"
+
+      - name: Update Tag Options JSON (for dropdown)
+        run: |
+          mkdir -p .github/metadata
+          git fetch --tags
+          git tag --sort=-creatordate | head -n 10 | jq -R . | jq -s . > .github/metadata/latest-tags.json
+
+      - name: Commit tag options
+        run: |
+          git add .github/metadata/latest-tags.json
+          git commit -m "Update tag dropdown options"
+          git push
