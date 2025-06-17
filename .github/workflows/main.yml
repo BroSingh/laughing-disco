@@ -43,5 +43,5 @@ jobs:
         context: .
         file: Dockerfile
         push: true
-        tags: viveksinghsahu/learnnn.v1:latest
+        tags: viveksinghsahu/visi-webapps:latest
         platforms: linux/amd64,linux/arm64 # Multi-architecture support
