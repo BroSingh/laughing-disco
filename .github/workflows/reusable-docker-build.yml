@@ -6,7 +6,7 @@ on:
       tag:
         required: true
         type: string
-      secrets:
+    secrets:
       DOCKER_USERNAME:
         required: true
       DOCKER_TOKEN:
