@@ -9,8 +9,8 @@ on:
         type: choice
         options:
         
-          - v1.0.0
-          - v0.9.1
+          - v20250617044455
+        # put the value of tag you wish to build
           # Optionally update from .github/metadata/latest-tags.json
           
 jobs:
